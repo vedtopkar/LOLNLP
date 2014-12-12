@@ -1,3 +1,9 @@
+from content_analysis import *
+from sentiment_analysis import *
+import numpy as np
+
+print 'Recommendation engine Initialized'
+
 def gif_within_distance(x0, y0, xs, ys, r, a):
     """
     Given an (x,y) coordinate and a distance

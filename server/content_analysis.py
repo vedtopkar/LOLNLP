@@ -3,6 +3,7 @@ import nltk.tokenize.punkt
 import string
 import re
 import pandas as pd
+import numpy as np
 
 data1 = pd.read_csv('data/pos_tagged_gif_data.csv')
 data2 = pd.read_csv('data/categorized_emotions.csv')
@@ -18,6 +19,8 @@ stopwords.append('')
 # Also instantiate the NLTK stemmer
 tokenizer = nltk.tokenize.punkt.PunktWordTokenizer()
 stemmer = nltk.stem.snowball.SnowballStemmer('english')
+
+print 'Sentiment Analysis Engine Initialized'
  
 def check_matching_tokens(a, b):
     """
