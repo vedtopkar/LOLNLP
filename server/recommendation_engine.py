@@ -39,7 +39,7 @@ def recommend_GIFs(text, amplify=1.0, verbose = False):
     """
     sentiment = estimate_phrase_sentiment(text)
     if not sentiment:
-       gifs = find_matching_gifs_by_content(text, output=False)
+        gifs = find_matching_gifs_by_content(text, output=False)
     else:
         gifs = gifs_in_neighborhood(sentiment[0], sentiment[1], master, r=0.8, a=amplify)
     
@@ -59,8 +59,12 @@ def recommend_gif(text):
     
     gifs = recommend_GIFs(text)
 
-    max_content_matches = max(gifs['N Matches'])
-    gif = gifs[gifs['N Matches'] == max_content_matches].iloc[random.randint(0, len(gifs)-1)]
+    if len(gifs) > 0:
+        max_content_matches = max(gifs['N Matches'])
+        gif = gifs[gifs['N Matches'] == max_content_matches].iloc[random.randint(0, len(gifs)-1)]
+    else:
+        gif = gifs.iloc[random.randint(0, len(gifs)-1)]
+
     gif_url = gif['URL']
 
     return gif_url

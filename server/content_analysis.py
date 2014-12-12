@@ -74,4 +74,4 @@ def find_matching_gifs_by_content(input_string, data=data, output=True):
         return df
     # otherwise, return an empty list
     else:
-        return []
+        return pd.DataFrame()
