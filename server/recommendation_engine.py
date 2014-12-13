@@ -63,7 +63,7 @@ def recommend_gif(text):
         max_content_matches = max(gifs['N Matches'])
         gif = gifs[gifs['N Matches'] == max_content_matches].iloc[random.randint(0, len(gifs)-1)]
     else:
-        gif = gifs.iloc[random.randint(0, len(gifs)-1)]
+        gif = master.iloc[random.randint(0, len(master)-1)]
 
     gif_url = gif['URL']
 

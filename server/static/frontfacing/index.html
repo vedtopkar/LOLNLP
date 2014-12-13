@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>GIFFRY: GIF Recommender</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/animate.css" rel="stylesheet">	
+	<link href="css/responsive.css" rel="stylesheet">
+
+</head><!--/head-->
+
+<body>
+	<header id="header" role="banner">		
+		<div class="main-nav">
+			<div class="container">
+				<div class="header-top">
+					<div class="pull-right social-icons">
+					</div>
+				</div>     
+		        <div class="row">	        		
+		            <div class="navbar-header">
+		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		                    <span class="sr-only">Toggle navigation</span>
+		                    <span class="icon-bar"></span>
+		                    <span class="icon-bar"></span>
+		                    <span class="icon-bar"></span>
+		                </button>
+		                <a class="navbar-brand" href="index.html">
+		                	<img class="img-responsive" src="images/giffry_logo.png" alt="logo">
+		                </a>                    
+		            </div>
+		            <div class="collapse navbar-collapse">
+		                <ul class="nav navbar-nav navbar-right">                 
+		                    <li class="scroll active"><a href="#home">Home</a></li>
+		                    <li class="scroll"><a href="#explore">About</a></li>                         
+		                    <li class="scroll"><a href="http://tomssilver.com/cs109">Crowdsourcing</a></li>
+		                    <li class="scroll"><a href="#contact">Video</a></li>       
+		                </ul>
+		            </div>
+		        </div>
+	        </div>
+        </div>                    
+    </header>
+    <!--/#header--> 
+
+    <section id="home">	
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12" style="text-align: center; margin-top: 100px; margin-bottom: 10px;">
+					<h1>What text would you like to be accompanied by a GIF?</h1>
+					<div class="col-lg-4"></div>
+					<div class="col-lg-4">
+						<div class="input-group">
+						  <input id="phrase" name="phrase" type="text" class="form-control">
+						  <span class="input-group-btn">
+							<button id="fetch" class="btn btn-default" type="button" style="height: 34px; padding: 2px 10px;">Fetch</button>
+						  </span>
+						</div><!-- /input-group -->
+					  </div><!-- /.col-lg-4 -->
+					</div><!-- /input-group -->
+					<div class="col-lg-4"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4"></div>
+				<div id="gif_holder" class="col-lg-4"></div>
+				<div class="col-lg-4"></div>
+			</div>
+		</div>	
+    </section>
+	<!--/#home-->
+
+	<section id="explore">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-8">
+					<h1>Overview</h1>
+					<p>In this project, we set out to create a GIF recommender that can recommend relevant GIFs from an input piece of text. The current method of finding GIFs relevant to text is to use some sort of search engine for GIFs, which takes time and effort. The goal was to use our knowledge of Data Science to create a GIF recommender that is both easy to use and that quickly recommends GIFs that are relevant to the input text, without much effort on the part of the user. We realized that the corpus of GIF "listicles" on BuzzFeed made for the perfect training set of text associated with a large number of GIFs. We also realized that classifying a GIF with a specific emotion or range of emotions is a task that cannot be done very well by machine learning algorithms alone.</p>
+					<p>With the ultimate goal of creating a GIF recommendation engine, we realized a number of intermediate goals during the course of our project. As no large dataset of GIFs classified according to sentiment is currently available, we sought to explore a variety of exploratory questions in pursuit of characterizing the general nature of GIFs. Some of these initial questions included: Is there a relationship between GIF color and sentiment? Is there a relationship between the total amount of movement in a GIF and sentiment? Are GIF sentiments fairly uniform in valence-arousal space, or are certain sentiments more likely to be captured in a GIF than others? We offer answers to these questions in this project.</p>
+					<p><a href="http://nbviewer.ipython.org/github/vedtopkar/LOLNLP/blob/master/LOLNLP%20Final%20Notebook%20FINAL.ipynb" style="color: yellow;">Click here</a> to view the iPython Process notebook for this project.</p>
+				</div>
+				<div class="col-sm-4" style="margin-top: 75px;">				
+					<div class="text-center carousel-inner center-block">	
+						<img src="images/image.gif">						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3" style="margin-top: 75px;">				
+					<div class="text-center carousel-inner center-block">	
+						<img src="images/work.gif">						
+					</div>
+				</div>
+				<div class="col-sm-9">
+					<h1>Methodology</h1>
+					<p>We initially used crowdsourcing as a way of analyzing GIF sentiment, and asked our friends to place GIFs that we had scraped from Buzzfeed on a graph with axes of valence and arousal. We then categorized the GIFs based on content analysis of each GIF's label text, as well as sentiment analysis from the label text and crowdsourced emotion categorization.</p>
+					<p>Finally, to aggregate our tuned sentiment and content analysis into a refined recommendation engine, we implemented the following workflow for when a query text is inputted:</p>
+					<ol>
+						<li>Use content analysis on the query to find all GIFs with relevant content.</li>
+						<li>Do sentiment analysis on the query to place the phrase on the sentiment plane.</li>
+						<li>Return the result from the content analysis step that is closest on the sentiment plane to the coordinates of step (2).</li>
+						<li>If there are no content analysis results, default to the closest GIF to the sentiment coordinate.</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12" style="margin-top: 15px;">				
+					<h1 style="text-align: center;">Results</h1>
+					<div class="row">
+						<div class="col-sm-3" style="margin-top: 15px;">
+							<h3>Crowdsourcing GIF Sentiment</h3>
+							<p>Within 24 hours of launching our GIF sentiment crowdsourcing application, we received 4000 responses. We were thrilled and surprised to receive such a positive and quick response. Since the GIFs were randomized, we observed that most of the rated GIFs had 1 or 2 ratings, while some outliers had a few more. The crowdsourcing application continues to accept responses presently so we can update our algorithms' efficacy in the future.</p>
+						</div>
+						<div class="col-sm-9" style="margin-top: 15px;">
+							<p><img class="img-responsive" src="images/crowds.png"></p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3" style="margin-top: 15px;">
+							<h3>GIF Sentiment and Luminance</h3>
+							<p>Luminance is a metric for describing the "brightness" of a color as calculated by how our eyes perceieve each of the three components of light (Red, Green, Blue).</p>
+							<p>In our luminance analysis, we applied the luminance equation to each pixel in each frame of each GIF and found the average luminance of each GIF for each category. </p>
+							<p>Note that the categories with the highest average luminances are generally the one that are the most active. Specifically, the happy, excited, and elated categories have above average luminances, whereas the upset and unpleasant categories have below average luminances.</p>
+						</div>
+						<div class="col-sm-9" style="margin-top: 15px;">
+							<p><img class="img-responsive" src="images/luminances.png"></p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3" style="margin-top: 15px;">
+							<h3>GIF Sentiment and Motion</h3>
+							<p>We devised an algorithm to quantify the amount of motion in a GIF by looking at pixel-by-pixel changes between each frame, averaged over all frames. We hypothesized that GIFs higher in arousal would be higher in motion. However, based on the analysis shown, there appears to be no obvious correlation between motion and GIF sentiment.</p>
+						</div>
+						<div class="col-sm-9" style="margin-top: 15px;">
+							<p><img class="img-responsive" src="images/motion.png"></p>
+						</div>
+					</div>
+					<p><a href="http://nbviewer.ipython.org/github/vedtopkar/LOLNLP/blob/master/LOLNLP%20Final%20Notebook%20FINAL.ipynb" style="color: yellow;">Click here</a> to view the iPython Process notebook for this project.</p>
+				</div>
+				<div class="col-sm-12" style="margin-top: 15px;">				
+					<h1 style="text-align: center;">Conclusion</h1>
+					<p>In this project, we created the first crowdsourced dataset of GIFs with their corresponding sentiment. We used this dataset to characterize GIFs as they are found on Buzzfeed, drawing out correlations between GIF sentiment and color scheme, luminance, and motion. We then created a framework for mapping textual input to the same sentiment space as our GIFs, followed by a mechanism for identifying relevant content in the textual input. Combining these components, we accomplished our goal of creating a GIF recommendation engine. While the problem of GIF recommendation is inherently qualitative and thus resistant to empirical accuracy analyses, we tested the recommendation engine on a huge variety of inputs and were very satisfied with the results. Since the framework we have established here is amenable to extension, we look forward to refining and improving the algorithm as our crowdsourcing continues. In future work, we would also like to explore other algorithms for recommending a GIF based on sentiment and content, especially through a score function that combines a sentiment score and a content score for a total score. We are grateful to CS109 for the chance to pursue such a fun and rewarding project, and for providing us with the intellectual and programmatic tools to do so.</p>
+				</div>
+			</div>
+		</div>
+	</section><!--/#explore-->
+
+<!-- 
+	<section id="contact">
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-2">
+				<iframe width="853" height="480" src="http://www.youtube.com/embed/mp8k6yD_OAk" frameborder="0" allowfullscreen></iframe>
+			</div>
+		</div>
+	</section>
+ -->
+    <!--/#contact-->
+
+    <footer id="footer">
+        <div class="container">
+            <div class="text-center">
+                <p> Copyright  &copy;2014<a target="_blank" href="http://shapebootstrap.net/"> Evento </a>Theme. All Rights Reserved. <br> Created by Tom Silver, Ved Topkar, and Arvind Narayanan</p>                
+            </div>
+        </div>
+    </footer>
+    <!--/#footer-->
+    
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/smoothscroll.js"></script>
+    <script type="text/javascript" src="js/jquery.parallax.js"></script>
+    <script type="text/javascript" src="js/jquery.scrollTo.js"></script>
+    <script type="text/javascript" src="js/jquery.nav.js"></script>
+    
+    <script>
+    function update_gif()
+    {
+        if($('#phrase').val().length > 0){
+            $('#gif_holder').html("<h2>Loading...</h2>");
+            var fetch_url = "http://giffry.com/recommend?q='"+$('#phrase').val()+"'";
+                                    
+            $.ajax({
+              url: fetch_url,
+              cache: false,
+              timeout: 30000,
+            })
+              .done(function(d) {
+                $('#gif_holder').html("<img class='img-responsive' src='"+d+"'>");
+              })
+              .fail(function( jqXHR, textStatus ) {
+                $('#gif_holder').html("<h2>Error, please try again :(</h2>");
+            });
+        }
+    }
+    
+    $(document).ready(function() {
+    
+    		$('input').keypress(function (e) {
+			  if (e.which == 13) {
+				update_gif();
+			  }
+			});
+    
+    		$('#fetch').on('click', function() {		
+    			update_gif();
+    		});
+    
+    });
+    </script>
+    
+</body>
+</html>
